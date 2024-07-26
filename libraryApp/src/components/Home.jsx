@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [rows, setRows] = useState([]);
@@ -91,9 +92,11 @@ const Home = () => {
                   </Typography>
                 </CardContent>
                 <div className="card-actions">
+                <Link to={`/book/${row.id}`}>
                   <button type="button" className="btn btn-secondary btn-sm" onClick={() => handleReadMoreClick(index)}>
                     Details
                   </button>
+                  </Link>
                 </div>
               </Card>
             </Grid>

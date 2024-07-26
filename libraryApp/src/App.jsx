@@ -6,13 +6,14 @@ import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import Navbar from './components/Navbar'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
 import Users from './components/Users'
 import { useLocation } from 'react-router-dom';
 import Usernav from './components/Usernav'
 import EditUser from './components/EditUser'
 import Admin from './components/Admin'
 import Adminnav from './components/Adminnav'
+import BookDetail from './components/BookDetail'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -30,6 +31,7 @@ function App() {
         <Route path='/users'element={<Users/>}></Route>
         <Route path='/edituser'element={<EditUser/>}></Route>
         <Route path='/admin' element={<Admin/>}></Route>
+        <Route path='/book/:id'element={<BookDetail/>}></Route>
       </Routes>
     </>
   )

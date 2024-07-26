@@ -31,6 +31,15 @@ app.get('/book', async (req,res)=>{
     }
 })
 
+app.get('/book/:id', async (req,res)=>{
+    try {
+        const data = await BookModel.find();
+        res.send(data);
+    } catch (error) {
+        res.send('Data not found');
+    }
+})
+
 //POST API
 app.post('/addbook', async(req,res)=>{
     try {
@@ -108,25 +117,25 @@ app.delete('/removeuser/:id',async(req,res)=>{
     
 })
 
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-    const user = users.find(user => user.username === username);
-
-    if (!user) {
-        return res.status(404).send({ message: 'User not found. Please sign up.' });
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(400).json({ error: 'Invalid email or password' });
+      }
+  
+      if (password !== user.password) {
+        return res.status(400).json({ error: 'Invalid email or password' });
+      }
+  
+      res.json({ message: 'Login successful', userType: user.type });
+    } catch (error) {
+      res.status(500).json({ error: 'Server error' });
     }
-
-    if (user.password !== password) {
-        return res.status(401).send({ message: 'Incorrect password.' });
-    }
-
-    // Generate a JWT
-    const token = jwt.sign({ id: user.id, username: user.username }, secretKey, { expiresIn: '1h' });
-
-    res.send({ message: 'Login successful', token });
-});
-
+  });
+  
 app.listen(3000,()=>{
     console.log('The server is running on port 3000')
 })
