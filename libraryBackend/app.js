@@ -1,6 +1,7 @@
 const express=require('express');
 const UserData=require('./connection')
 const app=new express();
+const bcrypt = require('bcrypt');
 const cors=require('cors');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
@@ -85,17 +86,19 @@ app.get('/user', async (req,res)=>{
 })
 
 //POST API
-app.post('/adduser', async(req,res)=>{
+app.post('/adduser', async (req, res) => {
     try {
-        var item = req.body;
-        const datasave = new UserModel(item);
-        const saveddata= await datasave.save();
-        res.send('Post succesful')
+      const { Password, ...otherData } = req.body;
+      const hashedPassword = await bcrypt.hash(Password, 10);
+      const user = new UserModel({ ...otherData, Password: hashedPassword });
+      await user.save();
+      res.send('User registered successfully');
     } catch (error) {
-        console.log(error)
+      console.log(error);
+      res.status(500).send('Error registering user');
     }
-})
-
+  });
+  
 //UPDATE API
 app.put('/useredit/:id',async(req,res)=>{
     try {
@@ -121,20 +124,26 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
   
     try {
-      const user = await User.findOne({ email });
+      const user = await UserModel.findOne({ EmailId: email });
       if (!user) {
+        console.log('User not found with email:', email);
         return res.status(400).json({ error: 'Invalid email or password' });
       }
   
-      if (password !== user.password) {
+      const isPasswordValid = await bcrypt.compare(password, user.Password);
+      if (!isPasswordValid) {
+        console.log('Password invalid for user:', email);
         return res.status(400).json({ error: 'Invalid email or password' });
       }
   
-      res.json({ message: 'Login successful', userType: user.type });
+      res.json({ message: 'Login successful', userType: user.Role });
     } catch (error) {
+      console.error('Error during login process:', error);
       res.status(500).json({ error: 'Server error' });
     }
   });
+  
+  
   
 app.listen(3000,()=>{
     console.log('The server is running on port 3000')

@@ -12,15 +12,14 @@ const Login = ({ setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('http://localhost:3000/login', { email, password });
       const { userType } = response.data;
-      // alert('Welcome');
       localStorage.setItem('userType', userType);
-      setIsLoggedIn(true);
+      // setIsLoggedIn(true);
       if (userType === 'admin') {
-        navigate('/adminpage', { replace: true });
+        navigate('/admin', { replace: true });
       } else {
-        navigate('/userview', { replace: true });
+        navigate('/users', { replace: true });
       }
     } catch (error) {
       if (error.response && error.response.data) {

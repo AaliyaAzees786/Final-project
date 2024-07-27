@@ -4,50 +4,48 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const EditUser = () => {
-  const [userData, setUserData] = useState({
-    name: '',
-    place: '',
-    age: '',
-    email: '',
-    education: '',
-    phone: ''
+  const [form, setForm] = useState({
+    Name: '',
+    Place: '',
+    Age: '',
+    Education: '',
+    PhoneNumber: ''
   });
 
   const navigate = useNavigate();
   const location = useLocation();
-  const userId = location.state ? location.state.val : null; // Assuming userId is passed through state
+  const userId = location.state ? location.state.val._id : null;
 
   useEffect(() => {
-    // Fetch the user data from your API
     if (userId) {
-      axios.get(`/api/users/${userId}`)
-        .then(response => {
-          setUserData(response.data);
+      axios.get(`http://localhost:3000/user/${userId}`)
+        .then((res) => {
+          setForm(res.data);
         })
-        .catch(error => {
-          console.error('Error fetching user data:', error);
+        .catch((error) => {
+          console.log('Error fetching user data:', error);
         });
     }
   }, [userId]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUserData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+  const valueFetch = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const valueAdd = () => {
+    axios.put(`http://localhost:3000/edituser/${userId}`, form)
+      .then((res) => {
+        alert('Data updated!');
+        navigate('/users');
+      })
+      .catch((error) => {
+        console.log('Error updating user data:', error);
+      });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Update the user data in your database
-    axios.put(`/api/users/${userId}`, userData)
-      .then(response => {
-        navigate('/users'); // Navigate to the users page after successful update
-      })
-      .catch(error => {
-        console.error('Error updating user data:', error);
-      });
+    valueAdd();
   };
 
   return (
@@ -93,19 +91,19 @@ const EditUser = () => {
             <TextField
               required
               id="name"
-              name="name"
+              name="Name"
               label="Name"
-              value={userData.name}
-              onChange={handleChange}
+              value={form.Name}
+              onChange={valueFetch}
               fullWidth
               margin="normal"
             />
             <TextField
               id="place"
-              name="place"
+              name="Place"
               label="Place"
-              value={userData.place}
-              onChange={handleChange}
+              value={form.Place}
+              onChange={valueFetch}
               multiline
               maxRows={4}
               fullWidth
@@ -113,11 +111,11 @@ const EditUser = () => {
             />
             <TextField
               id="age"
-              name="age"
+              name="Age"
               label="Age"
               type="number"
-              value={userData.age}
-              onChange={handleChange}
+              value={form.Age}
+              onChange={valueFetch}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -125,21 +123,11 @@ const EditUser = () => {
               margin="normal"
             />
             <TextField
-              required
-              id="email"
-              name="email"
-              label="Email Id"
-              value={userData.email}
-              onChange={handleChange}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
               id="education"
-              name="education"
+              name="Education"
               label="Education"
-              value={userData.education}
-              onChange={handleChange}
+              value={form.Education}
+              onChange={valueFetch}
               multiline
               maxRows={4}
               fullWidth
@@ -148,10 +136,10 @@ const EditUser = () => {
             <TextField
               required
               id="phone"
-              name="phone"
+              name="PhoneNumber"
               label="Phone no."
-              value={userData.phone}
-              onChange={handleChange}
+              value={form.PhoneNumber}
+              onChange={valueFetch}
               fullWidth
               margin="normal"
             />
