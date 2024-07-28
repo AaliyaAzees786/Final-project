@@ -1,10 +1,26 @@
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css';
+import axios from 'axios';
 
 
 const Usernav = () => {
+  const [user, setUser] = useState([]);
+  const [error,setError] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/user/:id')
+      .then((res) => {
+        setUser(res.data); // Set the single book object
+      })
+      .catch((err) => {
+        console.error('Error fetching book data:', err);
+        setError('Error fetching book data'); // Set error state
+      });
+  }, []);
+
+
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 2 }}>
     <AppBar

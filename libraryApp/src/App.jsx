@@ -14,12 +14,13 @@ import EditUser from './components/EditUser'
 import Admin from './components/Admin'
 import Adminnav from './components/Adminnav'
 import BookDetail from './components/BookDetail'
+import Addbook from './components/Addbook'
 
 function App() {
   const [count, setCount] = useState(0)
   const location = useLocation();
   const isUserRoute = ['/users', '/edituser'].some(path => location.pathname.startsWith(path));
-  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isAdminRoute = ['/admin', '/addbook'].some(path => location.pathname.startsWith(path));
 
   return (
     <>
@@ -32,6 +33,7 @@ function App() {
         <Route path='/edituser'element={<EditUser/>}></Route>
         <Route path='/admin' element={<Admin/>}></Route>
         <Route path='/book/:id'element={<BookDetail/>}></Route>
+        <Route path='/addbook' element={<Addbook/>}></Route>
       </Routes>
     </>
   )

@@ -13,7 +13,20 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [rows, setRows] = useState([]);
+  const [user, setUser] = useState([]);
+  const [error,setError] = useState([]);
   const [expandedCard, setExpandedCard] = useState(null);
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/user')
+      .then((res) => {
+        setUser(res.data); // Set the single book object
+      })
+      .catch((err) => {
+        console.error('Error fetching book data:', err);
+        setError('Error fetching book data'); // Set error state
+      });
+  }, []);
 
   useEffect(() => {
     axios.get('http://localhost:3000/book').then((res) => {

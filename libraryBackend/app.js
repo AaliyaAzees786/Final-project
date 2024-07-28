@@ -99,6 +99,7 @@ app.post('/adduser', async (req, res) => {
     }
   });
   
+  
 //UPDATE API
 app.put('/useredit/:id',async(req,res)=>{
     try {

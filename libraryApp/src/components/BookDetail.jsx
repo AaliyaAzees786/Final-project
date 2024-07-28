@@ -8,12 +8,15 @@ import { useParams } from 'react-router-dom';
 const BookDetail = () => {
   const { id } = useParams(); // Get the ID from the URL parameters
   const [book, setBook] = useState({}); // Use null for the initial state
+  const [rows,setRows] = useState({});
   const [error, setError] = useState(null); // State for handling errors
 
   useEffect(() => {
-    axios.get('http://localhost:3000/book/:id')
+    axios.get('http://localhost:3000/book/'+id)
       .then((res) => {
-        setBook(res.data); // Set the single book object
+        const bookData = res.data.find(row=>row.id == parseInt(id));
+        setBook(bookData);
+        console.log(bookData);
       })
       .catch((err) => {
         console.error('Error fetching book data:', err);
@@ -25,13 +28,13 @@ const BookDetail = () => {
     return <Typography variant="h5">Error: {error}</Typography>;
   }
 
-  if (!book) {
+  if (!rows) {
     return <Typography variant="h5">Loading...</Typography>;
   }
 
   return (
     <div style={{ alignContent: 'center', marginLeft: '30%' }}>
-      <Card sx={{ minWidth: 275, marginTop: '18%', width: '50%', display: 'flex' }}>
+      <Card sx={{ minWidth: 275, marginTop: '18%', width: '60%', display: 'flex' ,height:'75%'}}>
         <CardContent>
           <Typography variant="h6" component="div">
             Name: {book.title}
@@ -48,9 +51,9 @@ const BookDetail = () => {
           <Typography variant="h6" component="div">
             ISBN Number: {book.ISBN}
           </Typography>
-          <Typography variant="body1">
+          {/* <Typography variant="body1">
             Image Link: {book.img}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </Card>
     </div>

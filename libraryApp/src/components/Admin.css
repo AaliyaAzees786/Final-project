@@ -3,7 +3,7 @@ body{
     background-image: url('https://img.freepik.com/premium-photo/blur-library-background_882595-4867.jpg');
 }
 .viewbooks-container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -94,7 +94,7 @@ body{
   }
   
   .viewbooks-container form button {
-    background-color: #4CAF50;
+    background-color: #388E3C;
     color: #fff;
     cursor: pointer;
   }
@@ -111,6 +111,7 @@ body{
     background-color: #4CAF50;
     color: #fff;
   }
+
   
   .viewbooks-container button:hover {
     background-color: #388E3C;

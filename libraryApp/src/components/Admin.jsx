@@ -1,48 +1,108 @@
 import React, { useState, useEffect } from 'react';
 import './Admin.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Viewbooks = () => {
     const [users, setUsers] = useState([]);
     const [books, setBooks] = useState([]);
     const [newBook, setNewBook] = useState({ title: '', status: 'available' });
 
-    useEffect(()=>{
-      axios.get('http://localhost:3000').then((res)=>{
-      setUsers(res.data)
-    })
-    },[])
     useEffect(() => {
-        // Fetch users and books from API
+        // Fetch users and books from the API
         fetchUsers();
         fetchBooks();
     }, []);
 
     const fetchUsers = async () => {
-        // Fetch users from the backend
-        const response = await fetch('/user');
-        const data = await response.json();
-        setUsers(data);
+        try {
+            // Fetch users from the backend
+            const response = await axios.get('http://localhost:3000/user');
+            const data = response.data;
+
+            // Log data to check structure
+            console.log('Fetched Users:', data);
+
+            // Filter out users with the role 'admin'
+            const nonAdminUsers = data.filter(user => user.Role.toLowerCase() !== 'admin');
+
+            // Set the state with non-admin users only
+            setUsers(nonAdminUsers);
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
     };
 
     const fetchBooks = async () => {
-        // Fetch books from the backend
-        const response = await fetch('/books');
-        const data = await response.json();
-        setBooks(data);
+        try {
+            // Fetch books from the backend
+            const response = await axios.get('http://localhost:3000/book');
+            setBooks(response.data);
+        } catch (error) {
+            console.error('Error fetching books:', error);
+        }
     };
 
     const handleAddOrUpdateBook = async (e) => {
         e.preventDefault();
         // Add or update book in the backend
-        await fetch('books', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newBook),
-        });
-        setNewBook({ title: '', status: 'available' });
-        fetchBooks();
+        try {
+            await axios.post('http://localhost:3000/books', newBook);
+            setNewBook({ title: '', status: 'available' });
+            fetchBooks();
+        } catch (error) {
+            console.error('Error adding or updating book:', error);
+        }
     };
+
+    const handleDeleteUser = async (id) => {
+        try {
+            // Send a delete request to the backend
+            await axios.delete(`http://localhost:3000/user/${id}`);
+            // Update the users state by filtering out the deleted user
+            setUsers(users.filter(user => user.id !== id));
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+    
+
+    const handleBlockUser = async (id) => {
+        try {
+            // Update user status to 'blocked' in the backend
+            await axios.put(`http://localhost:3000/user/${id}`, { status: 'blocked' });
+            // Update the users state to reflect the change
+            setUsers(users.map(user => 
+                user.id === id ? { ...user, status: 'blocked' } : user
+            ));
+        } catch (error) {
+            console.error('Error blocking user:', error);
+        }
+    };
+    
+
+    const handleNotifyUser = async (id) => {
+        try {
+            // Notify user by sending a message or email via the backend
+            await axios.post(`http://localhost:3000/notify`, { userId: id, message: 'You have a new notification!' });
+            console.log('Notification sent to user:', id);
+        } catch (error) {
+            console.error('Error notifying user:', error);
+        }
+    };
+    
+
+    const handleDeleteBook = async (id) => {
+        try {
+            // Send a delete request to the backend
+            await axios.delete(`http://localhost:3000/book/${id}`);
+            // Update the books state by filtering out the deleted book
+            setBooks(books.filter(book => book.id !== id));
+        } catch (error) {
+            console.error('Error deleting book:', error);
+        }
+    };
+    
 
     return (
         <div className="viewbooks-container">
@@ -71,12 +131,12 @@ const Viewbooks = () => {
                         {users.map(user => (
                             <tr key={user.id}>
                                 <td>{user.id}</td>
-                                <td>{user.username}</td>
-                                <td>{user.email}</td>
+                                <td>{user.Username}</td>
+                                <td>{user.EmailId}</td>
                                 <td>
-                                    <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
-                                    <button onClick={() => handleBlockUser(user.id)}>Block</button>
-                                    <button onClick={() => handleNotifyUser(user.id)}>Notify</button>
+                                    <button id="button_1" onClick={() => handleDeleteUser(user.id)}>Delete</button>
+                                    <button id="button_1" onClick={() => handleBlockUser(user.id)}>Block</button>
+                                    <button id="button_1" onClick={() => handleNotifyUser(user.id)}>Notify</button>
                                 </td>
                             </tr>
                         ))}
@@ -103,7 +163,8 @@ const Viewbooks = () => {
                         <option value="available">Available</option>
                         <option value="rented">Rented</option>
                     </select>
-                    <button type="submit">Add/Update Book</button>
+                    <button type="submit">Update Book</button>
+                    <Link to="/addbook"><button type="button">Add Book</button></Link>
                 </form>
                 <table>
                     <thead>

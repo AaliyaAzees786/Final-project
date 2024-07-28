@@ -1,53 +1,38 @@
 import { Box, TextField, Typography, Button } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+// import { useNavigate, useLocation } from 'react-router-dom';
+// import axios from 'axios';
 
 const EditUser = () => {
-  const [form, setForm] = useState({
-    Name: '',
-    Place: '',
-    Age: '',
-    Education: '',
-    PhoneNumber: ''
-  });
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const userId = location.state ? location.state.val._id : null;
+  const location=useLocation()
+  function valueFetch(e){
+    setForm({...form,[e.target.name]:e.target.value})
+    console.log(form.data);
+  }
 
-  useEffect(() => {
-    if (userId) {
-      axios.get(`http://localhost:3000/user/${userId}`)
-        .then((res) => {
-          setForm(res.data);
-        })
-        .catch((error) => {
-          console.log('Error fetching user data:', error);
-        });
-    }
-  }, [userId]);
-
-  const valueFetch = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const valueAdd = () => {
-    axios.put(`http://localhost:3000/edituser/${userId}`, form)
-      .then((res) => {
+  function valueAdd(){
+    if(location.state!=null){
+      axios.put('http://localhost:4000/movieedit/'+location.state.val._id,form).then((res)=>{
         alert('Data updated!');
-        navigate('/users');
+      }).catch((error)=>{
+        console.log(error);
       })
-      .catch((error) => {
-        console.log('Error updating user data:', error);
-      });
-  };
+    }
+  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    valueAdd();
-  };
-
+  useEffect(()=>{
+    if(location.state!=null){
+      setForm({...form,
+        Name:location.state.val.Name,
+        Place:location.state.val.Place,
+        Age:location.state.val.Age,
+        Education:location.state.val.Education,
+        PhoneNumber:location.state.val.PhoneNumber
+    })
+    }
+  },[])
   return (
     <Box
       sx={{
@@ -87,14 +72,11 @@ const EditUser = () => {
           <Typography variant="h4" gutterBottom>
             Edit User Details
           </Typography>
-          <form onSubmit={handleSubmit}>
             <TextField
               required
               id="name"
               name="Name"
               label="Name"
-              value={form.Name}
-              onChange={valueFetch}
               fullWidth
               margin="normal"
             />
@@ -102,8 +84,6 @@ const EditUser = () => {
               id="place"
               name="Place"
               label="Place"
-              value={form.Place}
-              onChange={valueFetch}
               multiline
               maxRows={4}
               fullWidth
@@ -113,12 +93,8 @@ const EditUser = () => {
               id="age"
               name="Age"
               label="Age"
-              type="number"
-              value={form.Age}
-              onChange={valueFetch}
-              InputLabelProps={{
-                shrink: true,
-              }}
+              multiline
+              maxRows={4}
               fullWidth
               margin="normal"
             />
@@ -126,8 +102,6 @@ const EditUser = () => {
               id="education"
               name="Education"
               label="Education"
-              value={form.Education}
-              onChange={valueFetch}
               multiline
               maxRows={4}
               fullWidth
@@ -138,8 +112,6 @@ const EditUser = () => {
               id="phone"
               name="PhoneNumber"
               label="Phone no."
-              value={form.PhoneNumber}
-              onChange={valueFetch}
               fullWidth
               margin="normal"
             />
@@ -149,9 +121,8 @@ const EditUser = () => {
               sx={{ marginTop: '1rem' }}
               type="submit"
             >
-              Submit
+              Update
             </Button>
-          </form>
         </Box>
       </Box>
     </Box>
