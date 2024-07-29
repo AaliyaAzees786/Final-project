@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../api/axiosConfig';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,12 +9,29 @@ import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import './Home.css';
+import { useParams } from 'react-router-dom';
+
 
 const Home = () => {
   const [rows, setRows] = useState([]);
   const [expandedCard, setExpandedCard] = useState(null);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
+  const location=useLocation()
+
+  console.log(location);
+  const { id } = useParams();
+  console.log(id);
+
+  var uone;
+
+  axios.get('http://localhost:3000/user').then((res) => {
+  uone = res.data.find(row=>row._id == id);
+    });
+  console.log(uone);
+  // useEffect(() => {
+  //     // const { name } = uone.Name;
+  // }, []);
 
   useEffect(() => {
     axios.get('http://localhost:3000/book').then((res) => {
@@ -92,7 +109,8 @@ const Home = () => {
   return (
     <div className='home-container'>
       <Box sx={{ flexGrow: 1, margin: '5%' }}>
-        <h1 style={{fontFamily:'cursive', color:'antiquewhite', textAlign:'center', fontStyle:'italic'}}>Welcome, user!</h1>
+        <br />
+        <h1 style={{fontFamily:'cursive', color:'antiquewhite', textAlign:'center', fontStyle:'italic'}}>Welcome, USER !</h1>
         <Grid container spacing={3} className="card-container">
           {rows.map((row, index) => (
             <Grid item xs={3} key={index}>

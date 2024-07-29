@@ -4,11 +4,17 @@ import { Link } from 'react-router-dom'
 import './Navbar.css';
 import axios from 'axios';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useParams } from 'react-router-dom';
 
 
-const Usernav = () => {
+
+const Usernav = ({ userId }) => {
   const [user, setUser] = useState([]);
   const [error,setError] = useState([]);
+
+  const params = useParams();
+  const id = userId || params.id;
+
 
   useEffect(() => {
     axios.get('http://localhost:3000/user/:id')
@@ -50,7 +56,7 @@ const Usernav = () => {
           DIGITAL LIBRARY
         </Typography>
         <div>
-        <Link to={'/users'}><Button
+        <Link to={'/users/'+id}><Button
         color='primary'
         variant='outlined'
           sx={{ 
@@ -72,7 +78,7 @@ const Usernav = () => {
         >
           Logout
         </Button></Link>
-        <Link to={'/edituser'}><Button
+        <Link to={'/edituser/'+id}><Button
           sx={{
             backgroundColor: '#987D9A', 
             color: 'white',

@@ -14,12 +14,20 @@ const Login = ({ setIsLoggedIn }) => {
     try {
       const response = await axios.post('http://localhost:3000/login', { email, password });
       const { userType } = response.data;
+      
       localStorage.setItem('userType', userType);
       // setIsLoggedIn(true);
+      console.log(response.data);
       if (userType === 'admin') {
         navigate('/admin', { replace: true });
-      } else {
-        navigate('/users', { replace: true });
+      } else if (userType === 'User') {
+        axios.get('http://localhost:3000/user').then((res) => {
+      const uone = res.data.find(row=>row.EmailId == email)
+        navigate('/users/'+uone._id, { replace: true });
+      })
+      }
+      else{
+        console.log('INVALID USER')
       }
     } catch (error) {
       if (error.response && error.response.data) {
@@ -30,6 +38,11 @@ const Login = ({ setIsLoggedIn }) => {
       }
     }
   };
+
+
+  // const user = await axios.get('http://localhost:3000/pickuser', { email });
+  // console.log(user.data);
+
 
   return (
     <Box
