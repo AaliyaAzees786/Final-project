@@ -222,7 +222,7 @@ const Viewbooks = () => {
                     </tbody>
                 </table>
             </section>
-            <Button sx=onClick={handleClick({ vertical: 'bottom', horizontal: 'right' })}>
+            <Button onClick={handleClick({ vertical: 'bottom', horizontal: 'right' })}>
             rental alerts
           </Button>
 
