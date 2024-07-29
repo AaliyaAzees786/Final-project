@@ -61,20 +61,6 @@ const Usernav = () => {
         >
           Logout
         </Button></Link>
-        <Link to={'/edituser'}><Button
-          sx={{
-            backgroundColor: '#987D9A', 
-            color: 'white',
-            borderRadius: '8px',
-            margin: '0 8px',
-            '&:hover': {
-              backgroundColor: '#BB9AB1', 
-            },
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
-          }}
-        >
-          View profile
-        </Button></Link>
         </div>
       </Toolbar>
     </AppBar>

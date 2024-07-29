@@ -1,10 +1,12 @@
 /* Scoped styles for the Viewbooks component */
 body{
     background-image: url('https://img.freepik.com/premium-photo/blur-library-background_882595-4867.jpg');
+    background-size: 100%;
+    width: 100%;
 }
 .viewbooks-container {
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 5% auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

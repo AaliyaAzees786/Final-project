@@ -82,15 +82,9 @@ const Signup = () => {
     return (
         <div className="background-image">
             <Card className="glass-card">
-                <CardMedia
-                    component="img"
-                    alt="Signup Image"
-                    height="220"
-                    image="https://th.bing.com/th/id/OIP.F977i9e7dMrznvOT8q8azgHaEf?w=311&h=188&c=7&r=0&o=5&dpr=2.2&pid=1.7"
-                />
+                
                 <div className="signup-content">
-                    <h2 style={{color:'purple', textAlign:'center'}}><i>NEW USER?</i></h2>
-                    <h2 style={{color:'purple', textAlign:'center'}}><i>SIGN UP</i></h2>
+                    <h3 style={{color:'green', textAlign:'center'}}><i>SIGN UP</i></h3>
                     <form>
                         <TextField
                             label="Name"
@@ -195,7 +189,7 @@ const Signup = () => {
                             {error}
                         </Typography>
                     )}
-                        <h4><u>Terms and Conditions</u></h4>
+                        <h5><u>Terms and Conditions</u></h5>
                         <h5 style={{textDecoration:'Underline',color:'blue',fontSize:'15px',cursor:'pointer'}}>* If book is not returned or damaged, a fine will be charged.</h5>
                         <FormControlLabel
                             required

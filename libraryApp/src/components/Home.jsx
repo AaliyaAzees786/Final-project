@@ -17,6 +17,7 @@ const Home = () => {
   const [error,setError] = useState([]);
   const [expandedCard, setExpandedCard] = useState(null);
 
+
   useEffect(() => {
     axios.get('http://localhost:3000/user')
       .then((res) => {

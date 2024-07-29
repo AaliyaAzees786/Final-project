@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import './Home.css';
 
@@ -102,39 +103,28 @@ const Home = () => {
                   title={row.title}
                 />
                 <CardContent className="card-content">
-                  <Typography gutterBottom variant="h5" component="div">
-                    {truncateText(row.title, expandedCard === index)}
-                    {row.title.length > 20 && (
-                      <span
-                        className="read-more-btn"
-                        onClick={() => handleReadMoreClick(index)}
-                      >
-                        {expandedCard === index ? ' Show Less' : ' Read More'}
-                      </span>
-                    )}
+                  <Typography variant='h6'>{row.title}</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    <b>Author:</b> {row.author}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Author: {row.author}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Genre: {row.genre}
+                    <b>Genre:</b> {row.genre}
                   </Typography>
                 </CardContent>
                 <div className="card-actions">
-                <Link to={`/book/${row.id}`}><button
-                    type="button"
-                    className="btn btn-secondary btn-sm"
+                <Link to={`/book/${row.id}`}><Button
+                    variant='outlined'
                     onClick={() => navigate(`/books/${row.id}`)}
+                    sx = {{ marginRight:'10px' }}
                   >
                     Details
-                  </button></Link>
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-sm"
+                  </Button></Link>
+                  <Button
+                    variant='contained'
                     onClick={() => handleRentClick(row.id)}
                   >
                     Rent
-                  </button>
+                  </Button>
                 </div>
               </Card>
             </Grid>

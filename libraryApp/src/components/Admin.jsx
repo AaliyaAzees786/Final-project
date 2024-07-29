@@ -2,11 +2,43 @@ import React, { useState, useEffect } from 'react';
 import './Admin.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { styled } from '@mui/material/styles';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
+import Box from '@mui/material/Box';
+import Snackbar from '@mui/material/Snackbar';
+import List from '@mui/material/List';
+import IconButton from '@mui/material/IconButton';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 const Viewbooks = () => {
     const [users, setUsers] = useState([]);
     const [books, setBooks] = useState([]);
     const [newBook, setNewBook] = useState({ title: '', status: 'available' });
+
+    const Demo = styled('div')(({ theme }) => ({
+        backgroundColor: theme.palette.background.paper,
+      }));
+      
+      const [dense, setDense] = React.useState(false);
+      const [secondary, setSecondary] = React.useState(false);
+      
+      const [state, setState] = React.useState({
+        open: true,
+        vertical: 'bottom',
+        horizontal: 'right',
+      });
+      const { vertical, horizontal, open } = state;
+      
+          const handleClick = (newState) => () => {
+            setState({ ...newState, open: true });
+          };
+          
+          const handleClose = () => {
+            setState({ ...state, open: false });
+};
 
     useEffect(() => {
         // Fetch users and books from the API
@@ -42,6 +74,9 @@ const Viewbooks = () => {
             console.error('Error fetching books:', error);
         }
     };
+
+    
+
 
     const handleAddOrUpdateBook = async (e) => {
         e.preventDefault();
@@ -92,15 +127,13 @@ const Viewbooks = () => {
     };
     
 
-    const handleDeleteBook = async (id) => {
-        try {
-            // Send a delete request to the backend
-            await axios.delete(`http://localhost:3000/book/${id}`);
-            // Update the books state by filtering out the deleted book
-            setBooks(books.filter(book => book.id !== id));
-        } catch (error) {
-            console.error('Error deleting book:', error);
-        }
+    function handleDeleteBook(id){
+        axios.delete('http://localhost:4000/moviedelete/'+id).then((res) => {
+            alert('Data deleted');
+            window.location.reload()
+          }).catch((error)=>{
+            console.log(error)
+          })
     };
     
 
@@ -189,6 +222,52 @@ const Viewbooks = () => {
                     </tbody>
                 </table>
             </section>
+            <Button sx=onClick={handleClick({ vertical: 'bottom', horizontal: 'right' })}>
+            rental alerts
+          </Button>
+
+            <Box sx={{ width: 500 }}>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        // message="I love snacks"
+        key={vertical + horizontal}
+      >
+         <Grid item xs={12} md={6}>
+          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div" style={{color:'white'}}>
+            Rental Alerts
+          </Typography>
+          <Demo>
+            <List dense={dense}>
+               {/* {generate( */}
+            {/* {rows.map((row)=>( */}
+                <ListItem
+                  secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <DoneAllIcon />
+                    </IconButton>
+                  }
+                  >
+                  {/* <ListItemAvatar>
+                    <Avatar>
+                      <FolderIcon />
+                    </Avatar>
+                  </ListItemAvatar> */}
+                  <ListItemText
+                    primary="BOOK123 Successfully Rented By USER123 ."
+                    // primary={row.title}
+                    secondary={secondary ? 'Secondary text' : null}
+                  />
+                </ListItem>
+            {/* ))} */}
+            </List>
+
+          </Demo>
+        </Grid>
+      </Snackbar>
+
+    </Box>
         </div>
     );
 };

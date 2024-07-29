@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css';
 import axios from 'axios';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 const Usernav = () => {
@@ -44,35 +45,29 @@ const Usernav = () => {
         <Typography
           variant="h4"
           component="div"
-          sx={{ flexGrow: 1, color: 'grey', textShadow: '1px 1px 2px black' }}
+          sx={{ flexGrow: 1, color: 'white', textShadow: '1px 1px 2px black' }}
         >
           DIGITAL LIBRARY
         </Typography>
         <div>
         <Link to={'/users'}><Button
-          sx={{
-            backgroundColor: 'rgba(255, 69, 0, 0.8)', 
+        color='primary'
+        variant='outlined'
+          sx={{ 
             color: 'white',
             borderRadius: '8px',
-            margin: '0 8px',
-            '&:hover': {
-              backgroundColor: 'rgba(255, 69, 0, 1)',
-            },
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
+            margin: '0 8px'
           }}
         >
           Home
         </Button></Link>
         <Link to={'/login'}><Button
+        color='error'
+        variant='contained'
           sx={{
-            backgroundColor: 'rgba(60, 179, 113, 0.8)', 
             color: 'white',
             borderRadius: '8px',
             margin: '0 8px',
-            '&:hover': {
-              backgroundColor: 'rgba(60, 179, 113, 1)', 
-            },
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
           }}
         >
           Logout
@@ -89,7 +84,7 @@ const Usernav = () => {
             boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
           }}
         >
-          Edit Profile
+          Profile
         </Button></Link>
         </div>
       </Toolbar>

@@ -32,35 +32,29 @@ function Navbar() {
           <Typography
             variant="h4"
             component="div"
-            sx={{ flexGrow: 1, color: 'grey', textShadow: '1px 1px 2px black' }}
+            sx={{ flexGrow: 1, color:'white' }}
           >
             DIGITAL LIBRARY
           </Typography>
           <div>
           <Link to={'/'}><Button
+          variant='filled'
+          color='inherit'
             sx={{
-              backgroundColor: 'rgba(255, 69, 0, 0.8)', 
               color: 'white',
               borderRadius: '8px',
               margin: '0 8px',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 69, 0, 1)',
-              },
-              boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
             }}
           >
             Home
           </Button></Link>
           <Link to={'/login'}><Button
+          color='primary'
+          variant='contained'
             sx={{
-              backgroundColor: 'rgba(60, 179, 113, 0.8)', 
               color: 'white',
               borderRadius: '8px',
               margin: '0 8px',
-              '&:hover': {
-                backgroundColor: 'rgba(60, 179, 113, 1)', 
-              },
-              boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
             }}
           >
             Login/Signup
