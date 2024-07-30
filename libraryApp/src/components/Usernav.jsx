@@ -1,9 +1,10 @@
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, Box, Button, Stack, Toolbar, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css';
 import axios from 'axios';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { blue, green } from '@mui/material/colors';
 
 
 const Usernav = () => {
@@ -72,20 +73,7 @@ const Usernav = () => {
         >
           Logout
         </Button></Link>
-        <Link to={'/edituser'}><Button
-          sx={{
-            backgroundColor: '#987D9A', 
-            color: 'white',
-            borderRadius: '8px',
-            margin: '0 8px',
-            '&:hover': {
-              backgroundColor: '#BB9AB1', 
-            },
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
-          }}
-        >
-          Profile
-        </Button></Link>
+        <Link to={'/edituser'}><AccountCircleIcon></AccountCircleIcon></Link>
         </div>
       </Toolbar>
     </AppBar>

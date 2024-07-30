@@ -53,7 +53,7 @@ const EditUser = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: '10%',
+          marginTop: '5%',
         }}
       >
         <Box

@@ -1,275 +1,217 @@
 import React, { useState, useEffect } from 'react';
-import './Admin.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import Box from '@mui/material/Box';
-import Snackbar from '@mui/material/Snackbar';
-import List from '@mui/material/List';
-import IconButton from '@mui/material/IconButton';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import { Button } from '@mui/material';
+import {
+  Button, Typography, Box, Grid, Snackbar, IconButton,
+  Table, TableBody, TableCell, TableContainer, TableHead,
+  TableRow, Paper, TextField, Select, MenuItem, FormControl, InputLabel
+} from '@mui/material';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import DeleteIcon from '@mui/icons-material/Delete';
+import BlockIcon from '@mui/icons-material/Block';
+import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
+
 const Viewbooks = () => {
-    const [users, setUsers] = useState([]);
-    const [books, setBooks] = useState([]);
-    const [newBook, setNewBook] = useState({ title: '', status: 'available' });
+  const [users, setUsers] = useState([]);
+  const [books, setBooks] = useState([]);
+  const [newBook, setNewBook] = useState({ title: '', status: 'available' });
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarPosition, setSnackbarPosition] = useState({ vertical: 'bottom', horizontal: 'right' });
 
-    const Demo = styled('div')(({ theme }) => ({
-        backgroundColor: theme.palette.background.paper,
-      }));
-      
-      const [dense, setDense] = React.useState(false);
-      const [secondary, setSecondary] = React.useState(false);
-      
-      const [state, setState] = React.useState({
-        open: true,
-        vertical: 'bottom',
-        horizontal: 'right',
-      });
-      const { vertical, horizontal, open } = state;
-      
-          const handleClick = (newState) => () => {
-            setState({ ...newState, open: true });
-          };
-          
-          const handleClose = () => {
-            setState({ ...state, open: false });
-};
+  useEffect(() => {
+    fetchUsers();
+    fetchBooks();
+  }, []);
 
-    useEffect(() => {
-        // Fetch users and books from the API
-        fetchUsers();
-        fetchBooks();
-    }, []);
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/user');
+      const nonAdminUsers = response.data.filter(user => user.Role.toLowerCase() !== 'admin');
+      setUsers(nonAdminUsers);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
 
-    const fetchUsers = async () => {
-        try {
-            // Fetch users from the backend
-            const response = await axios.get('http://localhost:3000/user');
-            const data = response.data;
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/book');
+      setBooks(response.data);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  };
 
-            // Log data to check structure
-            console.log('Fetched Users:', data);
+  const handleAddOrUpdateBook = async (id) => {
+    e.preventDefault();
+    try {
+      await axios.put('http://localhost:3000/bookedit/'+id, newBook);
+      setNewBook({ title: '', status: 'Available' });
+      fetchBooks();
+      setSnackbarMessage('Book added/updated successfully!');
+      setSnackbarOpen(true);
+    } catch (error) {
+      console.error('Error adding or updating book:', error);
+    }
+  };
+  const handleDeleteUser = async (_id) => {
+     await axios.delete('http://localhost:3000/removeuser/'+_id).then((res) => {
+        alert('Data deleted');
+        window.location.reload()
+      }).catch((error)=>{
+        console.log(error)
+      })
+  };
 
-            // Filter out users with the role 'admin'
-            const nonAdminUsers = data.filter(user => user.Role.toLowerCase() !== 'admin');
-
-            // Set the state with non-admin users only
-            setUsers(nonAdminUsers);
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
-    };
-
-    const fetchBooks = async () => {
-        try {
-            // Fetch books from the backend
-            const response = await axios.get('http://localhost:3000/book');
-            setBooks(response.data);
-        } catch (error) {
-            console.error('Error fetching books:', error);
-        }
-    };
-
-    
+  const handleBlockUser = async (id) => {
+    try {
+      await axios.put('http://localhost:3000/user/'+id, { status: 'blocked' });
+      setUsers(users.map(user => user.id === id ? { ...user, status: 'blocked' } : user));
+    } catch (error) {
+      console.error('Error blocking user:', error);
+    }
+  };
 
 
-    const handleAddOrUpdateBook = async (e) => {
-        e.preventDefault();
-        // Add or update book in the backend
-        try {
-            await axios.post('http://localhost:3000/books', newBook);
-            setNewBook({ title: '', status: 'available' });
-            fetchBooks();
-        } catch (error) {
-            console.error('Error adding or updating book:', error);
-        }
-    };
+  const handleDeleteBook = async (id) => {
+    await axios.delete('http://localhost:3000/removebook/'+id).then((res) => {
+      alert('Data deleted');
+      window.location.reload()
+    }).catch((error)=>{
+      console.log(error)
+    })
+  };
 
-    const handleDeleteUser = async (id) => {
-        try {
-            // Send a delete request to the backend
-            await axios.delete(`http://localhost:3000/user/${id}`);
-            // Update the users state by filtering out the deleted user
-            setUsers(users.filter(user => user.id !== id));
-        } catch (error) {
-            console.error('Error deleting user:', error);
-        }
-    };
-    
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
-    const handleBlockUser = async (id) => {
-        try {
-            // Update user status to 'blocked' in the backend
-            await axios.put(`http://localhost:3000/user/${id}`, { status: 'blocked' });
-            // Update the users state to reflect the change
-            setUsers(users.map(user => 
-                user.id === id ? { ...user, status: 'blocked' } : user
-            ));
-        } catch (error) {
-            console.error('Error blocking user:', error);
-        }
-    };
-    
+  return (
+    <Box sx={{ padding: 4, maxWidth: '1200px', margin: '0 auto', backgroundColor: '#F9F9F9', borderRadius: 2, boxShadow: 3 }}>
+      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ marginBottom: 4 }}>
+        Admin Dashboard
+      </Typography>
 
-    const handleNotifyUser = async (id) => {
-        try {
-            // Notify user by sending a message or email via the backend
-            await axios.post(`http://localhost:3000/notify`, { userId: id, message: 'You have a new notification!' });
-            console.log('Notification sent to user:', id);
-        } catch (error) {
-            console.error('Error notifying user:', error);
-        }
-    };
-    
-
-    function handleDeleteBook(id){
-        axios.delete('http://localhost:4000/moviedelete/'+id).then((res) => {
-            alert('Data deleted');
-            window.location.reload()
-          }).catch((error)=>{
-            console.log(error)
-          })
-    };
-    
-
-    return (
-        <div className="viewbooks-container">
-            <header>
-                <h1>Admin Dashboard</h1>
-                <nav>
-                    <ul>
-                        <li><a href="#manage-users">Manage Users</a></li>
-                        <li><a href="#manage-books">Manage Books</a></li>
-                    </ul>
-                </nav>
-            </header>
-
-            <section id="manage-users">
-                <h2>Manage Users</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>User ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map(user => (
-                            <tr key={user.id}>
-                                <td>{user.id}</td>
-                                <td>{user.Username}</td>
-                                <td>{user.EmailId}</td>
-                                <td>
-                                    <button id="button_1" onClick={() => handleDeleteUser(user.id)}>Delete</button>
-                                    <button id="button_1" onClick={() => handleBlockUser(user.id)}>Block</button>
-                                    <button id="button_1" onClick={() => handleNotifyUser(user.id)}>Notify</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
-
-            <section id="manage-books">
-                <h2>Manage Books</h2>
-                <form onSubmit={handleAddOrUpdateBook}>
-                    <label htmlFor="book-title">Book Title:</label>
-                    <input
-                        type="text"
-                        id="book-title"
-                        value={newBook.title}
-                        onChange={e => setNewBook({ ...newBook, title: e.target.value })}
-                    />
-                    <label htmlFor="book-status">Status:</label>
-                    <select
-                        id="book-status"
-                        value={newBook.status}
-                        onChange={e => setNewBook({ ...newBook, status: e.target.value })}
-                    >
-                        <option value="available">Available</option>
-                        <option value="rented">Rented</option>
-                    </select>
-                    <button type="submit">Update Book</button>
-                    <Link to="/addbook"><button type="button">Add Book</button></Link>
-                </form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Book ID</th>
-                            <th>Title</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {books.map(book => (
-                            <tr key={book.id}>
-                                <td>{book.id}</td>
-                                <td>{book.title}</td>
-                                <td>{book.status}</td>
-                                <td>
-                                    <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
-            <Button sx=onClick={handleClick({ vertical: 'bottom', horizontal: 'right' })}>
-            rental alerts
-          </Button>
-
-            <Box sx={{ width: 500 }}>
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        // message="I love snacks"
-        key={vertical + horizontal}
-      >
-         <Grid item xs={12} md={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div" style={{color:'white'}}>
-            Rental Alerts
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Manage Users
           </Typography>
-          <Demo>
-            <List dense={dense}>
-               {/* {generate( */}
-            {/* {rows.map((row)=>( */}
-                <ListItem
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
-                      <DoneAllIcon />
-                    </IconButton>
-                  }
-                  >
-                  {/* <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar> */}
-                  <ListItemText
-                    primary="BOOK123 Successfully Rented By USER123 ."
-                    // primary={row.title}
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>
-            {/* ))} */}
-            </List>
-
-          </Demo>
+          <TableContainer component={Paper} sx={{ marginBottom: 4 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>User ID</TableCell>
+                  <TableCell>Username</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users.map(user => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.id}</TableCell>
+                    <TableCell>{user.Username}</TableCell>
+                    <TableCell>{user.EmailId}</TableCell>
+                    <TableCell>
+                      <IconButton color="error" onClick={() => handleDeleteUser(user._id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton color="secondary" onClick={() => handleBlockUser(user.id)}>
+                        <BlockIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Grid>
-      </Snackbar>
 
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h2" gutterBottom>
+            Manage Books
+          </Typography>
+          <form onSubmit={handleAddOrUpdateBook} style={{ marginBottom: 4 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Book Title"
+                  variant="outlined"
+                  fullWidth
+                  value={newBook.title}
+                  onChange={e => setNewBook({ ...newBook, title: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Status</InputLabel>
+                  <Select
+                    value={newBook.status}
+                    onChange={e => setNewBook({ ...newBook, status: e.target.value })}
+                    label="Status"
+                  >
+                    <MenuItem value="available">Available</MenuItem>
+                    <MenuItem value="rented">Rented</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Button type="submit" variant="contained" color="primary" fullWidth>
+                  Update Book
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Button component={Link} to="/addbook" variant="contained" color="secondary" fullWidth>
+                  Add Book
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Book ID</TableCell>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {books.map(book => (
+                  <TableRow key={book.id}>
+                    <TableCell>{book.id}</TableCell>
+                    <TableCell>{book.title}</TableCell>
+                    <TableCell>{book.status}</TableCell>
+                    <TableCell>
+                      <IconButton color="error" onClick={() => handleDeleteBook(book._id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+      </Grid>
+
+      <Snackbar
+        anchorOrigin={snackbarPosition}
+        open={snackbarOpen}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        action={
+          <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackbarClose}>
+            <DoneAllIcon fontSize="small" />
+          </IconButton>
+        }
+      />
     </Box>
-        </div>
-    );
+  );
 };
 
 export default Viewbooks;
