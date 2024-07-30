@@ -7,9 +7,14 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { blue, green } from '@mui/material/colors';
 
 
-const Usernav = () => {
+
+const Usernav = ({ userId }) => {
   const [user, setUser] = useState([]);
   const [error,setError] = useState([]);
+
+  const params = useParams();
+  const id = userId || params.id;
+
 
   useEffect(() => {
     axios.get('http://localhost:3000/user/:id')
@@ -51,7 +56,7 @@ const Usernav = () => {
           DIGITAL LIBRARY
         </Typography>
         <div>
-        <Link to={'/users'}><Button
+        <Link to={'/users/'+id}><Button
         color='primary'
         variant='outlined'
           sx={{ 

@@ -4,7 +4,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.viewbooks-container {
+.box-container {
   max-width: 1200px;
   margin: 5% auto;
   padding: 20px;
@@ -13,55 +13,55 @@ body {
   border-radius: 8px;
 }
 
-.viewbooks-container header {
+.box-container header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.viewbooks-container header h1 {
+.box-container header h1 {
   font-size: 2.5rem;
   color: #4CAF50;
 }
 
-.viewbooks-container header nav ul {
+.box-container header nav ul {
   list-style: none;
   display: flex;
   gap: 10px;
 }
 
-.viewbooks-container header nav ul li {
+.box-container header nav ul li {
   font-size: 1rem;
 }
 
-.viewbooks-container header nav ul li a {
+.box-container header nav ul li a {
   text-decoration: none;
   color: #4CAF50;
 }
 
-.viewbooks-container header nav ul li a:hover {
+.box-container header nav ul li a:hover {
   text-decoration: underline;
 }
 
-.viewbooks-container section {
+.box-container section {
   margin-bottom: 40px;
 }
 
-.viewbooks-container section h2 {
+.box-container section h2 {
   font-size: 2rem;
   color: #333;
   margin-bottom: 10px;
 }
 
-.viewbooks-container form {
+.box-container form {
   display: flex;
   flex-direction: column;
   gap: 15px;
   margin-bottom: 30px;
 }
 
-.viewbooks-container form button {
+.box-container form button {
   max-width: 200px;
   align-self: center;
 }
