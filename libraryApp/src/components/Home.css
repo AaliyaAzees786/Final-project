@@ -32,10 +32,10 @@
 }
 
 .carousel {
-    width: 50%;
+    width: 90%;
     height: 60%;
-    margin-left: 300px;
-    margin-top: 10%;
+    margin-left: 70px;
+    margin-top: 100px;
 }
 
 .card-container {
@@ -63,7 +63,9 @@
 } 
 
 .card:hover {
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0 16px 22px rgba(0,0,0,0.2);
+    width: 280px; 
+    height: 460px; 
   }
 
 
