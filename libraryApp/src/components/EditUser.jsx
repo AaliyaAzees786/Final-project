@@ -21,7 +21,7 @@ const EditUser = () => {
     Cpass: '',
   });
   
-  const uid='demo';
+  // const uid='demo';
   // const location=useLocation()
   // console.log(location.pathname);
   const { id } = useParams();
