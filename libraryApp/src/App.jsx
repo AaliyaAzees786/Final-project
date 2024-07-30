@@ -15,6 +15,8 @@ import Admin from './components/Admin'
 import Adminnav from './components/Adminnav'
 import BookDetail from './components/BookDetail'
 import Addbook from './components/Addbook'
+import ManageUsers from './components/Manageusers'
+import ManageBooks from './components/Managebooks'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -36,6 +38,8 @@ function App() {
         <Route path='/admin' element={<Admin/>}></Route>
         <Route path='/book/:id'element={<BookDetail/>}></Route>
         <Route path='/addbook' element={<Addbook/>}></Route>
+        <Route path='/manage-users' element={<ManageUsers/>}></Route>
+        <Route path='/manage-books' element={<ManageBooks/>}></Route>
       </Routes>
     </>
   )

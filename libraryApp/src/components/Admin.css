@@ -1,121 +1,92 @@
-/* Scoped styles for the Viewbooks component */
-body{
-    background-image: url('https://img.freepik.com/premium-photo/blur-library-background_882595-4867.jpg');
-    background-size: 100%;
-    width: 100%;
+body {
+  background-image: url('https://img.freepik.com/premium-photo/blur-library-background_882595-4867.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-.viewbooks-container {
-    max-width: 1000px;
-    margin: 5% auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #FEF3E2;
-  }
-  
-  .viewbooks-container header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .viewbooks-container header h1 {
-    font-size: 2rem;
-    color: #4CAF50;
-  }
-  
-  .viewbooks-container header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 10px;
-  }
-  
-  .viewbooks-container header nav ul li a {
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-  }
-  
-  .viewbooks-container header nav ul li a:hover {
-    color: #388E3C;
-  }
-  
-  .viewbooks-container section {
-    margin-bottom: 40px;
-  }
-  
-  .viewbooks-container section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #388E3C;
-  }
-  
-  .viewbooks-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .viewbooks-container table thead {
-    background-color: #4CAF50;
-    color: #fff;
-  }
-  
-  .viewbooks-container table th, .viewbooks-container table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .viewbooks-container table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .viewbooks-container table tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .viewbooks-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .viewbooks-container form label {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .viewbooks-container form input, .viewbooks-container form select, .viewbooks-container form button {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .viewbooks-container form button {
-    background-color: #388E3C;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .viewbooks-container form button:hover {
-    background-color: #388E3C;
-  }
-  
-  .viewbooks-container button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: #fff;
-  }
 
-  
-  .viewbooks-container button:hover {
-    background-color: #388E3C;
-  }
-  
+.box-container {
+  max-width: 1200px;
+  margin: 5% auto;
+  padding: 20px;
+  background-color: #F9F9F9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.box-container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.box-container header h1 {
+  font-size: 2.5rem;
+  color: #4CAF50;
+}
+
+.box-container header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+.box-container header nav ul li {
+  font-size: 1rem;
+}
+
+.box-container header nav ul li a {
+  text-decoration: none;
+  color: #4CAF50;
+}
+
+.box-container header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.box-container section {
+  margin-bottom: 40px;
+}
+
+.box-container section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.box-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.box-container form button {
+  max-width: 200px;
+  align-self: center;
+}
+
+.table-container {
+  margin-bottom: 40px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container table thead tr th {
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+}
+
+.table-container table tbody tr td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container table tbody tr td button {
+  margin-right: 10px;
+}
