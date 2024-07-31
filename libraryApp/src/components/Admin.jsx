@@ -5,7 +5,9 @@ import './Admin.css';
 
 const Viewbooks = () => {
   return (
-    <Box sx={{ padding: 4, align:'center',maxWidth: '1200px',  backgroundColor: '#F9F9F9', borderRadius: 2, boxShadow: 3 }}>
+    <div className='mainContainer'>
+    <Box sx={{ padding: 4, align:'center',maxWidth: '1200px',  backgroundColor: '#F9F9F9', borderRadius: 2, boxShadow: 3 }} >
+      {/* <br /><br /> */}
       <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ marginBottom: 4 }}>
         Admin Dashboard
       </Typography>
@@ -22,6 +24,7 @@ const Viewbooks = () => {
         </Grid>
       </Grid>
     </Box>
+    </div>
   );
 };
 

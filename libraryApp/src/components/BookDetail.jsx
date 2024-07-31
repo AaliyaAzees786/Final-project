@@ -4,7 +4,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { Button, CardActions, CardMedia } from '@mui/material';
+import { Button, CardActions, CardMedia, Grid } from '@mui/material';
+import './BookDetail.css';
 
 const BookDetail = () => {
   const { id } = useParams(); // Get the ID from the URL parameters
@@ -34,44 +35,62 @@ const BookDetail = () => {
   }
 
   return (
-    <div style={{ alignContent: 'center', marginLeft: '30%' }}>
-      <br /><br /><br /><br />
+    <div className='pageContainer'>
+    <div className='mainDiv'>
 
-
-<Card sx={{ maxWidth: 450 }}>
-      <CardMedia
-        sx={{ height: 500, objectFit: 'scale-down', alignContent:'center' }}
-        image={book.img}
-        title={book.title}
-      />
-      <CardContent>
+      <Grid container spacing={105} >
+      <Grid item xs={3}>
+      <Card sx={{ width: 800, height:500}}>
+      <CardContent className='cardCont'>
         <Typography gutterBottom variant="h5" component="div">
-        Name: {book.title}
+        Name : 
+        {book.title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-        A young man who is set to get married but due to a web of unforeseen bad luck and circumstances, he marries a woman who hates him and has to suffer her wrath over it.
-        </Typography>
+        <Typography variant="h6" component="div">
+            Author  : {book.author}
+          </Typography>
+          <Typography variant="h6" component="div">
+            Year  : {book.year}
+          </Typography>
+          <Typography variant="h6" component="div">
+            Genre  : {book.genre}
+          </Typography>
+          <Typography variant="h6" component="div">
+            Description  : {book.Description}
+          </Typography>
+          <Typography variant="h6" component="div">
+            ISBN Number  : {book.ISBN}
+          </Typography>
       </CardContent>
       {/* <CardActions>
         <Button size="small">Share</Button>
         <Button href='https://www.imdb.com/title/tt25400540/' size="small">Learn More</Button>
       </CardActions> */}
     </Card>
+        </Grid>
 
-
-
+    <Grid item xs={2}>
+      <Card sx={{ width: 400 }}>
+            <CardMedia
+              sx={{ height: 550, objectFit: 'contain', alignContent:'center' }}
+              image={book.img}
+              title={book.title}
+            /></Card>
+            </Grid>
+    </Grid>
+    
 
       {/* <Card sx={{ minWidth: 275, marginTop: '18%', width: '60%', display: 'flex' ,height:'75%'}}>
         <CardMedia sx={{height: 250}}>
-          <img src={book.img} alt="" />
+        <img src={book.img} alt="" />
         </CardMedia>
         <CardContent>
-          <Typography variant="h6" component="div">
-            Name: {book.title}
-          </Typography>
-          <Typography variant="h6" component="div">
-            Author: {book.author}
-          </Typography>
+        <Typography variant="h6" component="div">
+        Name: {book.title}
+        </Typography>
+        <Typography variant="h6" component="div">
+        Author: {book.author}
+        </Typography>
           <Typography variant="h6" component="div">
             Year: {book.year}
           </Typography>
@@ -83,6 +102,7 @@ const BookDetail = () => {
           </Typography>
         </CardContent>
       </Card> */}
+    </div>
     </div>
   );
 };

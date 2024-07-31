@@ -13,6 +13,7 @@ body {
   border-radius: 8px;
 }
 
+
 .box-container header {
   display: flex;
   justify-content: space-between;
@@ -24,6 +25,22 @@ body {
   font-size: 2.5rem;
   color: #4CAF50;
 }
+
+.mainContainer {
+  padding-left: 120px;
+  padding-top: 80px;
+}
+
+.manageuContainer {
+  padding-left: 40px;
+  padding-top: 80px;
+}
+
+.managebContainer {
+  padding-left: 40px;
+  padding-top: 80px;
+}
+
 
 .box-container header nav ul {
   list-style: none;

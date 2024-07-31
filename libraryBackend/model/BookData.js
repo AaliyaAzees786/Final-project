@@ -7,7 +7,8 @@ const bookSchema = mongoose.Schema({
     year:Number,
     genre:String,
     ISBN:Number,
-    img:String
+    img:String,
+    Description:String
 })
 
 const BookData=mongoose.model('book',bookSchema);

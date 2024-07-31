@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box, Paper } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
+import './Login.css';
 
 const Login = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
@@ -47,7 +48,7 @@ const Login = ({ setIsLoggedIn }) => {
   return (
     <Box
       sx={{
-        backgroundImage: 'url(https://img.freepik.com/premium-photo/blur-library-background_882595-4867.jpg)',
+        backgroundImage: 'url(https://www.pixelstalk.net/wp-content/uploads/2016/08/Library-HD-Background.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         minHeight: '100vh',
@@ -57,9 +58,9 @@ const Login = ({ setIsLoggedIn }) => {
         backdropFilter: 'blur(10px)'
       }}
     >
-      <Container component="main" maxWidth="xs" sx={{ backdropFilter: 'blur(10px)', p: 4, backgroundColor: 'rgba(255, 255, 255, 0.5)' }} >
-        <Paper elevation={3} sx={{ backdropFilter: 'blur(10px)', p: 4, backgroundColor: 'rgba(255, 255, 255, 0.5)' }}>
-          <Typography variant="h4" component="h1" sx={{ textAlign:'center', color:'green',  marginBottom:'2px' }}>
+      <Container component="main"  sx={{ backdropFilter: 'blur(10px)', p: 4, backgroundColor: 'rgba(255, 255, 255, 0.5)',width:700 }} >
+        <Paper elevation={3} sx={{ backdropFilter: 'blur(10px)', p: 4, backgroundColor: 'rgba(255, 255, 255, 0.5)',width:600 ,marginLeft:3 }}>
+          <Typography variant="h4" component="h1" sx={{ textAlign:'center', color:'green',fontFamily:"cursive",  marginBottom:'2px' }}>
             LOGIN
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ textAlign:'center' }}>

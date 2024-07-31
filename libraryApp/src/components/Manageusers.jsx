@@ -3,6 +3,8 @@ import axios from 'axios';
 import { IconButton, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BlockIcon from '@mui/icons-material/Block';
+import './Admin.css';
+
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -40,6 +42,7 @@ const ManageUsers = () => {
   };
 
   return (
+    <div className='manageuContainer'>
     <Box sx={{ padding: 4, maxWidth: '1200px', margin: '0 auto', backgroundColor: '#F9F9F9', borderRadius: 2, boxShadow: 3 }}>
       <Typography variant="h5" component="h2" gutterBottom>
         Manage Users
@@ -74,6 +77,7 @@ const ManageUsers = () => {
         </Table>
       </TableContainer>
     </Box>
+    </div>
   );
 };
 
