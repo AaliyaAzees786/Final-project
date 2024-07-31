@@ -6,7 +6,7 @@ body {
 
 .box-container {
   max-width: 1200px;
-  margin: 5% auto;
+  margin: 5%;
   padding: 20px;
   background-color: #F9F9F9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -36,10 +36,7 @@ body {
   padding-top: 80px;
 }
 
-.managebContainer {
-  padding-left: 40px;
-  padding-top: 80px;
-}
+
 
 
 .box-container header nav ul {

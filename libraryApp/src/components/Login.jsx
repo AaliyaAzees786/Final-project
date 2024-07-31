@@ -60,8 +60,8 @@ const Login = ({ setIsLoggedIn }) => {
     >
       <Container component="main"  sx={{ backdropFilter: 'blur(10px)', p: 4, backgroundColor: 'rgba(255, 255, 255, 0.5)',width:700 }} >
         <Paper elevation={3} sx={{ backdropFilter: 'blur(10px)', p: 4, backgroundColor: 'rgba(255, 255, 255, 0.5)',width:600 ,marginLeft:3 }}>
-          <Typography variant="h4" component="h1" sx={{ textAlign:'center', color:'green',fontFamily:"cursive",  marginBottom:'2px' }}>
-            LOGIN
+          <Typography variant="h4" component="h1" sx={{ textAlign:'center', color:'green',fontFamily:'-moz-initial',  marginBottom:'2px' }}>
+            <b>LOGIN</b>
           </Typography>
           <Box component="form" onSubmit={handleSubmit} sx={{ textAlign:'center' }}>
             <TextField

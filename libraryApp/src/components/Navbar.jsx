@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Link } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 import './Navbar.css';
 
@@ -34,7 +36,7 @@ function Navbar() {
             component="div"
             sx={{ flexGrow: 1, color:'white' }}
           >
-            DIGITAL LIBRARY
+          <MenuBookIcon sx={{ fontSize: 50 }}/>    DIGITAL LIBRARY
           </Typography>
           <div>
           <Link to={'/'}><Button
@@ -46,7 +48,7 @@ function Navbar() {
               margin: '0 8px',
             }}
           >
-            Home
+      <HomeIcon sx={{ fontSize: 40 }} />
           </Button></Link>
           <Link to={'/login'}><Button
           color='primary'

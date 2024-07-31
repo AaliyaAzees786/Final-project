@@ -2,6 +2,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css';
+import HomeIcon from '@mui/icons-material/Home';
 
 
 const Usernav = () => {
@@ -35,17 +36,18 @@ const Usernav = () => {
         <div>
         <Link to={'/'}><Button
           sx={{
-            backgroundColor: 'rgba(255, 69, 0, 0.8)', 
+            // backgroundColor: 'rgba(255, 69, 0, 0.8)', 
             color: 'white',
             borderRadius: '8px',
             margin: '0 8px',
             '&:hover': {
-              backgroundColor: 'rgba(255, 69, 0, 1)',
+              // backgroundColor: 'rgba(255, 69, 0, 1)',
             },
             boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', 
           }}
         >
-          Home
+        <HomeIcon sx={{ fontSize: 40 }} />
+
         </Button></Link>
         <Link to={'/login'}><Button
           sx={{

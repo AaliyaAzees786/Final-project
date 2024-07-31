@@ -9,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import './Home.css';
-import { useParams } from 'react-router-dom';
 
 
 const Home = () => {
@@ -20,15 +19,7 @@ const Home = () => {
   const location=useLocation()
 
   console.log(location);
-  const { id } = useParams();
-  console.log(id);
 
-  var uone;
-
-  axios.get('http://localhost:3000/user').then((res) => {
-  uone = res.data.find(row=>row._id == id);
-    });
-  console.log(uone);
   // useEffect(() => {
   //     // const { name } = uone.Name;
   // }, []);
@@ -64,15 +55,20 @@ const Home = () => {
     return isExpanded || text.length <= 20 ? text : `${text.substring(0, 15)}...`;
   };
 
-  const handleRentClick = async (bookId) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleRentClick = async (_id) => {
+    setIsDisabled((prevState) => ({ ...prevState, [_id]: true })); // Disable the button for the clicked book
     try {
-      await axios.post(`http://localhost:3000/rent/${bookId}`);
+      await axios.put(`http://localhost:3000/bookedit/${_id}`, { status: "Rented" });
       console.log('Book rented successfully!');
-      notifyAdmin(bookId);
+      notifyAdmin(_id); // Notify the admin with the correct _id
     } catch (error) {
       console.error('Error renting book:', error);
+      setIsDisabled((prevState) => ({ ...prevState, [_id]: false })); // Re-enable the button if there's an error
     }
   };
+
 
   const notifyAdmin = async (userId, bookId) => {
     try {
@@ -139,7 +135,9 @@ const Home = () => {
                   </Button></Link>
                   <Button
                     variant='contained'
-                    onClick={() => handleRentClick(row.id)}
+                    key={row._id}
+                    onClick={() => handleRentClick(row._id)}
+          disabled={isDisabled[row._id]}
                   >
                     Rent
                   </Button>

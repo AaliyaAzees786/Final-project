@@ -18,8 +18,13 @@ const Viewbooks = () => {
           </Button>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Button component={Link} to="/manage-books" variant="contained" color="secondary" fullWidth sx={{ padding: 2 }}>
-            Manage Books
+          <Button component={Link} to="/manage-books" variant="contained" color="primary" fullWidth sx={{ padding: 2 }}>
+            Books Collections
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Button component={Link} to="/addbook" variant="contained" style={{backgroundColor:'green'}} fullWidth sx={{ padding: 2 }}>
+            Add New Book
           </Button>
         </Grid>
       </Grid>

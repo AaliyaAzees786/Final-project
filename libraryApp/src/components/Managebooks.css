@@ -1,0 +1,11 @@
+body {
+    background-image: url('https://img.freepik.com/premium-photo/blur-library-background_882595-4867.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .managebContainer {
+  
+    padding-left: 40px;
+    padding-top: 80px;
+  }

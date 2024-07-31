@@ -43,23 +43,23 @@ const BookDetail = () => {
       <Card sx={{ width: 800, height:500}}>
       <CardContent className='cardCont'>
         <Typography gutterBottom variant="h5" component="div">
-        Name : 
+        <b>Name :</b> 
         {book.title}
         </Typography>
         <Typography variant="h6" component="div">
-            Author  : {book.author}
+            <b>Author  :</b> {book.author}
           </Typography>
           <Typography variant="h6" component="div">
-            Year  : {book.year}
+            <b>Year  : </b>{book.year}
           </Typography>
           <Typography variant="h6" component="div">
-            Genre  : {book.genre}
+           <b> Genre  : </b>{book.genre}
           </Typography>
           <Typography variant="h6" component="div">
-            Description  : {book.Description}
+          <b> Description  : </b><i>{book.Description}</i>
           </Typography>
           <Typography variant="h6" component="div">
-            ISBN Number  : {book.ISBN}
+           <b> ISBN Number  : </b>{book.ISBN}
           </Typography>
       </CardContent>
       {/* <CardActions>
@@ -80,28 +80,6 @@ const BookDetail = () => {
     </Grid>
     
 
-      {/* <Card sx={{ minWidth: 275, marginTop: '18%', width: '60%', display: 'flex' ,height:'75%'}}>
-        <CardMedia sx={{height: 250}}>
-        <img src={book.img} alt="" />
-        </CardMedia>
-        <CardContent>
-        <Typography variant="h6" component="div">
-        Name: {book.title}
-        </Typography>
-        <Typography variant="h6" component="div">
-        Author: {book.author}
-        </Typography>
-          <Typography variant="h6" component="div">
-            Year: {book.year}
-          </Typography>
-          <Typography variant="h6" component="div">
-            Genre: {book.genre}
-          </Typography>
-          <Typography variant="h6" component="div">
-            ISBN Number: {book.ISBN}
-          </Typography>
-        </CardContent>
-      </Card> */}
     </div>
     </div>
   );

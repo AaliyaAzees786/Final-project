@@ -5,7 +5,7 @@ import './Navbar.css';
 import axios from 'axios';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { blue, green } from '@mui/material/colors';
-
+import HomeIcon from '@mui/icons-material/Home';
 
 
 const Usernav = ({ userId }) => {
@@ -65,7 +65,7 @@ const Usernav = ({ userId }) => {
             margin: '0 8px'
           }}
         >
-          Home
+                <HomeIcon sx={{ fontSize: 40 }} />
         </Button></Link>
         <Link to={'/login'}><Button
         color='error'
@@ -78,7 +78,7 @@ const Usernav = ({ userId }) => {
         >
           Logout
         </Button></Link>
-        <Link to={'/edituser/'+id}><AccountCircleIcon></AccountCircleIcon></Link>
+        <Link to={'/edituser/'+id}><AccountCircleIcon sx={{ fontSize: 40 }}></AccountCircleIcon></Link>
         </div>
       </Toolbar>
     </AppBar>
