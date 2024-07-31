@@ -5,8 +5,8 @@ import './Admin.css';
 
 const Viewbooks = () => {
   return (
-    <Box sx={{ padding: 4, align:'center',maxWidth: '1200px',  backgroundColor: '#F9F9F9', borderRadius: 2, boxShadow: 3 }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ marginBottom: 4 }}>
+    <Box sx={{ padding: 4, align:'center',maxWidth: '1500px',  backgroundColor: '#F9F9F9', borderRadius: 2, boxShadow: 3 }}>
+      <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ marginBottom: 4 ,marginTop:'5%'}}>
         Admin Dashboard
       </Typography>
       <Grid container spacing={4} justifyContent="center">

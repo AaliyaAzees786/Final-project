@@ -29,8 +29,9 @@ const ManageBooks = () => {
   };
 
   return (
+    
     <Box sx={{ padding: 4, maxWidth: '1200px', margin: '0 auto', backgroundColor: '#F9F9F9', borderRadius: 2, boxShadow: 3 }}>
-      <Typography variant="h5" component="h2" gutterBottom>
+      <Typography variant="h5" component="h2" gutterBottom sx={{marginTop:'5%'}}>
         Manage Books
       </Typography>
       <TableContainer component={Paper}>
