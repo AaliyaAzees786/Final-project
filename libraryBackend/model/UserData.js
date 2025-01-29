@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     Place:String,
     Age:Number,
     EmailId: {type: String,
-        required: true,
+        required: true,   
         unique: true,
         match: [/.+\@.+\..+/, 'Please fill a valid email address']
       },
